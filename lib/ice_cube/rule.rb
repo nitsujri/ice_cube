@@ -48,7 +48,7 @@ module IceCube
       rule = IceCube::Rule.send(match[1].downcase.to_sym, hash[:interval] || 1)
       rule.interval(hash[:interval] || 1, TimeUtil.wday_to_sym(hash[:week_start] || 0)) if match[1] == "Weekly"
       rule.until(TimeUtil.deserialize_time(hash[:until])) if hash[:until]
-      rule.count(hash[:count]) if hash[:count]
+      rule.count(hash[:count].to_i) if hash[:count]
       hash[:validations] && hash[:validations].each do |key, value|
         key = key.to_sym unless key.is_a?(Symbol)
         value.is_a?(Array) ? rule.send(key, *value) : rule.send(key, value)
